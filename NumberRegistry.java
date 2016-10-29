@@ -15,6 +15,11 @@ boolean  isUsed(char[10] number)
 boolean  setUsed(char[10] number, boolean used)) 
 char[] getNumberForState(boolean used)
 
+to prove it runs under 4G, run with max heap = 2G, anything less runs out of memory
+
+java -XX:+PrintFlagsFinal -Xmx2048m NumberRegistry
+
+
 
 **********************************************************************/
 
@@ -93,12 +98,12 @@ private int charsToInt(char[] data,int start,int end) throws IllegalArgumentExce
 }
 
 
-public void testNumber(String testnum) {
-    setUsed(testnum.toCharArray(), true);
-    System.out.println(testnum + " true : " + isUsed(testnum.toCharArray()));
+private static void testNumber(String testnum, NumberRegistry reg) {
+    reg.setUsed(testnum.toCharArray(), true);
+    System.out.println(testnum + " true : " + reg.isUsed(testnum.toCharArray()));
 
-    setUsed(testnum.toCharArray(), false);
-    System.out.println(testnum + " false : " + isUsed(testnum.toCharArray()));
+    reg.setUsed(testnum.toCharArray(), false);
+    System.out.println(testnum + " false : " + reg.isUsed(testnum.toCharArray()));
 }
   
 
@@ -117,11 +122,10 @@ public static void main (String args[]) {
     System.out.println("found : " + new String(found));
 
     // testing  setUsed, isUsed
-    String testnum = "0123456789";
-    registry.testNumber("0123456789");
-    registry.testNumber("3107666345");
-    registry.testNumber("0000000000");
-    registry.testNumber("9999999999");
+    testNumber("0123456789", registry);
+    testNumber("3107666345", registry);
+    testNumber("0000000000", registry);
+    testNumber("9999999999", registry);
 
     // testing  getNumberForState
     registry.setUsed("3107666345".toCharArray(), true);
@@ -163,6 +167,7 @@ public static void main (String args[]) {
     }
 
 
+    String testnum;
     try {
         testnum = "a999999999";
         registry.setUsed(testnum.toCharArray(), true);
