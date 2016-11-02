@@ -17,7 +17,7 @@ private static long lcm(long a, long b) {
 public long compute(long num) {
 
     long result = 1;
-    for (int ii = 1 ; ii <= num; ii++) 
+    for (int ii = 1 ; ii <= num; ii++) {
         result = lcm(ii, result);
     }
     return result;
