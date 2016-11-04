@@ -12,9 +12,9 @@ public long sieveOfEratosthenes (int maxNumSize){
         // 1 is non prime - only integers greater than 1
         isComposite[1] = true;
         
-        for (int ii = 2; ii * ii < maxNumSize; ii++) {
+        for (int ii = 2; ii * ii < isComposite.length; ii++) {
             if (!isComposite[ii]) {
-                for (int jj = ii ; ii * jj < maxNumSize ; jj++) {
+                for (int jj = ii ; ii * jj < isComposite.length ; jj++) {
                     isComposite[ii*jj] = true;
                 }
             }
